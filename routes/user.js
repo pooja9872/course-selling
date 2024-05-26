@@ -3,7 +3,7 @@ const router = Router();
 const userMiddleware = require("../middleware/user");
 const { User, Course } = require("../db");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../config");
+require("dotenv").config();
 
 // User Routes
 router.post("/signup", async (req, res) => {
@@ -36,7 +36,7 @@ router.post("/signin", async (req, res) => {
   if (user) {
     const token = jwt.sign(
       { username: username, password: password },
-      JWT_SECRET
+      process.env.JWT_SECRET
     );
     res.json({
       token,

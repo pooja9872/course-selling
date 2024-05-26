@@ -1,6 +1,6 @@
 // Middleware for handling auth
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../config");
+require("dotenv").config();
 
 function adminMiddleware(req, res, next) {
   // Implement admin auth logic
@@ -10,7 +10,7 @@ function adminMiddleware(req, res, next) {
   const jwtToken = words[1]; // token
 
   try {
-    const decodedValue = jwt.verify(jwtToken, JWT_SECRET);
+    const decodedValue = jwt.verify(jwtToken, process.env.JWT_SECRET);
     if (decodedValue.username) {
       next();
     } else {
